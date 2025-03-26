@@ -1,0 +1,45 @@
+/* background image */
+.sec1_contact {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./p1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-attachment: fixed; */
+    padding: 150px 100px;
+    height: 200px;
+    padding-top: 150px;
+}
+
+.con_h1 {
+    /* text-align: left; */
+    font-size: 60px;
+    color: white;
+    font-weight: bold;
+    bottom: 70%;
+    text-align: center;
+}
+
+.con_h1:hover {
+    color: #EE4C7C;
+}
+/* =---------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+  /* our services css */
+  .h1{
+    text-align: center;
+  }
+
+  /* profile */
+.container{
+    padding-left: 500px;
+}
+
+#fttext{
+color:blue;
+}

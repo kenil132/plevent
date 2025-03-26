@@ -1,0 +1,113 @@
+<div class="tab-pane fade" id="tabs-2-4">
+    <?php
+    $rg_id = $_SESSION['fname'];
+    // echo $rg_id;
+    $email_search = "select id from register WHERE fname='$rg_id' ";
+    $query = mysqli_query($con, $email_search);
+    $e_count = mysqli_num_rows($query);
+    if ($e_count) {
+        $e_pass = mysqli_fetch_assoc($query);
+        $db_pass = $e_pass['id'];
+
+        $_SESSION['id'] = $e_pass['id'];
+
+        $id = $_SESSION['id'];
+    }
+
+
+    $query = "SELECT * from feedback WHERE customerid='$db_pass'";
+    $query_run = mysqli_query($con, $query);
+
+    if (mysqli_num_rows($query_run) > 0) {
+        foreach ($query_run as $row) {
+
+    ?>
+    <div class="row">
+        <div class="col-lg-6 col-md-4 col-sm-12">
+            <div class="card shadow feedback_card" style="width:380px;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <?php echo $row['fname']; ?> <br>
+                        <div class="star_show py-1">
+                            <?php
+                        // echo $row['star'];
+                        if ($row['star'] == 1) {
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i> ";
+                        } else if ($row['star'] == 2) {
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                        } else if ($row['star'] == 3) {
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                        }else if ($row['star'] == 4){
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                        }
+                         else {
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                            echo " <i class='fas fa-star' style='color:#FFD93D; font-size:20px'></i>";
+                        }
+                        ?>
+                        </div>
+                    </h5>
+                    <p style="font-size:15px" class="card-text">
+                        <?php echo $row['date']; ?>
+                    </p>
+
+                    <p class="card-text">
+                        <?php echo $row['fb']; ?>
+                    </p>
+                    <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger deletebtn">
+                        <i class="fas fa-trash"> </i> delete</button>
+
+                </div>
+            </div>
+            <?php
+        }
+    } else {
+        echo "no feedback found";
+    }
+    ?>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('.deletebtn').click(function (e) {
+            e.preventDefault();
+            var rg_id = $(this).val();
+            // console.log(rg_id);
+            $('.delete_user_id').val(rg_id);
+            $('#deletemodal').modal('show');
+        });
+    });
+</script>
+<!-- delete modal -->
+<div class="modal fade" id="deletemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">delete User</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <form action="userquery.php" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="delete_id" class="delete_user_id">
+                    <p>are you sure to delete your feedback ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                    <button type="submit" name="deletefeedback" class="btn btn-primary">confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
