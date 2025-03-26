@@ -80,6 +80,7 @@ NOTE : -
 <p style="color: rgb(83, 83, 83);">coustomer care no :(0261)936 1452</p>
 <br><br><br><br><br><br><br><br><br><br>
 
+
 <p style="text-align: center;color: rgb(152, 151, 151);">Thank your for Choosing us.</p>';
 $mpdf = new \Mpdf\mpdf();
 $mpdf->WriteHTML($css, 1);
